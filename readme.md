@@ -1,11 +1,9 @@
 
 ### Dependencias
 
-[moment.js](https://momentjs.com/)
-
-[node-telegram-got-api](https://github.com/yagop/node-telegram-bot-api)
-
-[sqlite3](https://www.sqlitetutorial.net/sqlite-nodejs/)
+- [moment.js](https://momentjs.com/)
+- [node-telegram-got-api](https://github.com/yagop/node-telegram-bot-api)
+- [sqlite3](https://www.sqlitetutorial.net/sqlite-nodejs/)
 
 ### Versiones 
 
@@ -18,5 +16,6 @@ npm: 7.13.0
 ### Creadores 
 
 [Ann Diehl](https://github.com/kotorigadaisuki)
+
 [Ale Piumetti](https://github.com/alepiumetti)
 
