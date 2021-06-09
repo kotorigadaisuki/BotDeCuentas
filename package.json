@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kotorigadaisuki/BotDeCuentas#readme",
   "dependencies": {
+    "moment": "^2.29.1",
     "node-telegram-bot-api": "^0.53.0",
     "sqlite3": "^5.0.2"
   },

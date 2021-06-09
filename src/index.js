@@ -1,6 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
 const Token = require("./token");
-const cmd = require("./functions");
+const readCommands = require("./readFunctions");
+const writeCommands = require("./writeFunctions");
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(Token, { polling: true });
@@ -17,10 +18,13 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const slice = message.indexOf(" "); //LEO EL INDICE DEL PRIMER ESPACIO
   const cost = message.substr(0, slice); //IDENTIFICO LA PRIMER PARTE DEL MENSAJE Y GUARDO
   const description = message.substr(slice, message.length); //IDENTIFICO LA SEGUNDA PARTE DEL MENSAJE Y GUARDO
+  const name = msg.chat.first_name;
 
   if (message == "list") {
-    cmd.readDB().then((response) => {
+    readCommands.readDB().then((response) => {
       bot.sendMessage(response);
     });
+  } else {
+    writeCommands.writeData(cost, description, name);
   }
 });
