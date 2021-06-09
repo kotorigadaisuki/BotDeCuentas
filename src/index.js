@@ -21,10 +21,12 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const name = msg.chat.first_name;
 
   if (message == "list") {
-    readCommands.readDB().then((response) => {
-      bot.sendMessage(response);
+    readCommands.readDB().then(() => {
+      // bot.sendMessage(chatId, response);
     });
-  } else {
+  } else if (cost.match(/([0-9])/)) {
     writeCommands.writeData(cost, description, name);
+  } else {
+    bot.sendMessage(chatId, "Comando inválido");
   }
 });

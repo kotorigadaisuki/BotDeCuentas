@@ -9,7 +9,6 @@ const readDB = () => {
       if (err) {
         console.error("error en crear db:", err.message);
       }
-      console.log("Connected to the database.");
     }
   );
 
@@ -27,11 +26,11 @@ const readDB = () => {
       }
       response = rows.map(function (row) {
         return (
-          row.nombre +
-          "\t" +
           row.precio +
           "\t" +
           row.comentario +
+          "\t" +
+          row.nombre +
           "\t" +
           row.fecha +
           "\n"
@@ -45,7 +44,6 @@ const readDB = () => {
     if (err) {
       console.error("error en cerrar db:", err.message);
     }
-    console.log("Close the database connection.");
   });
 };
 
