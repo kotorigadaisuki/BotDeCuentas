@@ -15,3 +15,8 @@ nvm: 0.38.0
 npm: 7.13.0
 ```
 
+### Creadores 
+
+[Ann Diehl](https://github.com/kotorigadaisuki)
+[Ale Piumetti](https://github.com/alepiumetti)
+
