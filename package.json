@@ -1,0 +1,32 @@
+{
+  "name": "botdecuentas",
+  "version": "1.0.0",
+  "description": "Bot para llevar las cuentas",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kotorigadaisuki/BotDeCuentas.git"
+  },
+  "keywords": [
+    "bot",
+    "cuentas",
+    "telegram"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kotorigadaisuki/BotDeCuentas/issues"
+  },
+  "homepage": "https://github.com/kotorigadaisuki/BotDeCuentas#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.53.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
