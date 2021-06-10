@@ -14,16 +14,23 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   // of the message
 
   const chatId = msg.chat.id;
-  const message = match[1].toLocaleLowerCase(); //GUARDO EL MENSAJE EN BRUTO
+  const message = match[1].toLowerCase(); //GUARDO EL MENSAJE EN BRUTO
   const slice = message.indexOf(" "); //LEO EL INDICE DEL PRIMER ESPACIO
   const cost = message.substr(0, slice); //IDENTIFICO LA PRIMER PARTE DEL MENSAJE Y GUARDO
   const description = message.substr(slice, message.length); //IDENTIFICO LA SEGUNDA PARTE DEL MENSAJE Y GUARDO
   const name = msg.chat.first_name;
 
   if (message == "list") {
-    readCommands.readDB().then(() => {
-      // bot.sendMessage(chatId, response);
+    // const date = description.substr(
+    //   description.indexOf(" "),
+    //   description.length
+    // );
+
+    readCommands.readDB(name, (response) => {
+      bot.sendMessage(chatId, name + " llevas gastado $" + response);
     });
+
+    // bot.sendMessage(chatId, "llega");
   } else if (cost.match(/([0-9])/)) {
     writeCommands.writeData(cost, description, name);
   } else {

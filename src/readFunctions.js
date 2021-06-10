@@ -1,6 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 
-const readDB = () => {
+const readDB = (name, callback) => {
   //lectura completa a la db
   let db = new sqlite3.Database(
     "./src/gastos.sqlite3",
@@ -12,33 +12,19 @@ const readDB = () => {
     }
   );
 
-  db.all(
-    `SELECT nombre AS nombre,
-            precio AS precio,
-            comentario AS comentario,
-            fecha AS fecha
-           FROM gastos`,
-    (err, rows) => {
-      let response;
-
-      if (err) {
-        console.error("error en leer db:", err.message);
-      }
-      response = rows.map(function (row) {
-        return (
-          row.precio +
-          "\t" +
-          row.comentario +
-          "\t" +
-          row.nombre +
-          "\t" +
-          row.fecha +
-          "\n"
-        );
-      });
-      console.log(response.join().toString());
+  db.all(`SELECT * FROM gastos WHERE nombre=?`, [name], (err, rows) => {
+    if (err) {
+      console.error("error en leer db:", err.message);
     }
-  );
+
+    let gasto = 0;
+
+    rows.forEach((row) => {
+      gasto += parseInt(row.precio);
+    });
+
+    callback(gasto);
+  });
 
   db.close((err) => {
     if (err) {
