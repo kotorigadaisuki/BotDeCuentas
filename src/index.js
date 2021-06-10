@@ -33,12 +33,7 @@ bot.onText(/\/g (.+)/, (msg, match) => {
 
     // bot.sendMessage(chatId, "llega");
   } else if (message[0].match(/([0-9])/)) {
-    writeCommands.writeData(cost, description, name);
-  } else if (message[0] == "start") {
-    const chat = bot.getChat(chatId);
-    chat.then((resp) => {
-      // console.log(`resp`, resp);
-    });
+    writeCommands.writeData(message[0], message[1], name);
   } else {
     bot.sendMessage(chatId, "Comando inválido");
   }
