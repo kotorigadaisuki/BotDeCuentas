@@ -1,6 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();
+const moment = require("moment");
 
-const readDB = (name, callback) => {
+const readDB = (name, date, sendMessage) => {
   //lectura completa a la db
   let db = new sqlite3.Database(
     "./src/gastos.sqlite3",
@@ -18,12 +19,30 @@ const readDB = (name, callback) => {
     }
 
     let gasto = 0;
+    if (date[1] == 0) {
+      //EN EL CASO DE QUE NO TENGA SEGUNDO PARÁMETRO
+      const dateEnd = moment().format("YYYY-MM-DD HH:mm:ss.SSSSSS"); //FECHA DE HOY
+      rows.forEach((row) => {
+        if (moment(row.fecha).isBetween(date, dateEnd)) {
+          //SOLO SUMA LOS GASTOS DE LOS DÍAS QUE ESTEN ENTRE EL PARÁMETRO Y HOY
+          gasto += parseInt(row.precio);
+          console.error(`gasto`, gasto);
+          console.log(`fecha`, row.fecha);
+        }
+      });
+    } else {
+      rows.forEach((row) => {
+        //EN EL CASO DE QUE TENGA 2 PARÁMETROS
+        if (moment(row.fecha).isBetween(date[0], date[1])) {
+          //SUMA LAS FECHAS QUE ESTÁN ENTRE LOS DOS PARÁMETROS
+          gasto += parseInt(row.precio);
+          console.log(`fecha`, row.fecha);
+        }
+        console.error(`gasto`, gasto);
+      });
+    }
 
-    rows.forEach((row) => {
-      gasto += parseInt(row.precio);
-    });
-
-    callback(gasto);
+    sendMessage(gasto);
   });
 
   db.close((err) => {
