@@ -19,13 +19,13 @@ bot.onText(/\/g (.+)/, (msg, match) => {
 
   if (message[0] == "list" && message[1] != undefined) {
     if (message[2] != undefined) {
-      const startDate = baseFunctions.getDate(message[1]);
+      const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
       const endDate = baseFunctions.getDate([message[2]]);
       readCommands.readDB(name, [startDate, endDate], (response) => {
         bot.sendMessage(chatId, name + " llevas gastado $" + response);
       });
     } else {
-      const date = baseFunctions.getDate(message[1]);
+      const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
       readCommands.readDB(name, date, (response) => {
         bot.sendMessage(chatId, name + " llevas gastado $" + response);
       });
