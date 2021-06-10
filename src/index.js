@@ -21,19 +21,19 @@ bot.onText(/\/g (.+)/, (msg, match) => {
     if (message[2] != undefined) {
       const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
       const endDate = baseFunctions.getDate([message[2]]);
-      readCommands.readDB(name, [startDate, endDate], (response) => {
+      readCommands.readDB(name, [startDate, endDate], chatId, (response) => {
         bot.sendMessage(chatId, name + " llevas gastado $" + response);
       });
     } else {
       const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-      readCommands.readDB(name, date, (response) => {
+      readCommands.readDB(name, date, chatId, (response) => {
         bot.sendMessage(chatId, name + " llevas gastado $" + response);
       });
     }
 
     // bot.sendMessage(chatId, "llega");
   } else if (message[0].match(/([0-9])/)) {
-    writeCommands.writeData(message[0], message[1], name);
+    writeCommands.writeData(message[0], message[1], name, chatId);
   } else {
     bot.sendMessage(chatId, "Comando inválido");
   }
