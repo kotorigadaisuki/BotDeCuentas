@@ -15,7 +15,7 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   // of the message
   const chatId = msg.chat.id;
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
-  const name = msg.chat.first_name;
+  const name = msg.from.first_name;
 
   if (message[0] == "list" && message[1] != undefined) {
     if (message[2] != undefined) {

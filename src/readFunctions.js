@@ -26,8 +26,6 @@ const readDB = (name, date, sendMessage) => {
         if (moment(row.fecha).isBetween(date, dateEnd)) {
           //SOLO SUMA LOS GASTOS DE LOS DÍAS QUE ESTEN ENTRE EL PARÁMETRO Y HOY
           gasto += parseInt(row.precio);
-          console.error(`gasto`, gasto);
-          console.log(`fecha`, row.fecha);
         }
       });
     } else {
@@ -36,9 +34,7 @@ const readDB = (name, date, sendMessage) => {
         if (moment(row.fecha).isBetween(date[0], date[1])) {
           //SUMA LAS FECHAS QUE ESTÁN ENTRE LOS DOS PARÁMETROS
           gasto += parseInt(row.precio);
-          console.log(`fecha`, row.fecha);
         }
-        console.error(`gasto`, gasto);
       });
     }
 
