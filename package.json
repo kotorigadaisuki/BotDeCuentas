@@ -2,7 +2,7 @@
   "name": "botdecuentas",
   "version": "1.0.0",
   "description": "Bot para llevar las cuentas",
-  "main": "index.js",
+  "main": "index_cuentas.js",
   "scripts": {
     "test": "test",
     "start": "node ./src/index_cuentas.js"
