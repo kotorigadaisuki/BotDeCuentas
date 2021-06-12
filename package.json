@@ -5,7 +5,8 @@
   "main": "index_cuentas.js",
   "scripts": {
     "test": "test",
-    "start": "node ./src/index_cuentas.js"
+    "start": "node ./src/index_cuentas.js",
+    "dev":"nodemon ./src/index_cuentas.js"
   },
   "repository": {
     "type": "git",

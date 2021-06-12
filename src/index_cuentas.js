@@ -16,25 +16,31 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
   const name = msg.from.first_name;
+  console.log(message.length);
 
-  if (message[0] == "list" && message[1] != undefined) {
-    if (message[2] != undefined) {
-      const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-      const endDate = baseFunctions.getDate([message[2]]);
-      readCommands.readDB(name, [startDate, endDate], chatId, (response) => {
-        bot.sendMessage(chatId, name + " llevas gastado $" + response);
-      });
+  if (message.length<=3){
+    if (message[0] == "list" && message[1] != undefined && message[1]>=1 && message[1]<=12) {
+      if (message[2] != undefined && message[2]<=1 && message[2]<=12) {
+        const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+        const endDate = baseFunctions.getDate([message[2]]);
+        readCommands.readDB(name, [startDate, endDate], chatId, (response) => {
+          bot.sendMessage(chatId, name + " llevas gastado $" + response);
+        });
+      } else {
+        const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+        readCommands.readDB(name, date, chatId, (response) => {
+          bot.sendMessage(chatId, name + " llevas gastado $" + response);
+        });
+      }
+
+      // bot.sendMessage(chatId, "llega");
+    } else if (message[0].match(/([0-9])/)) {
+      writeCommands.writeData(message[0], message[1], name, chatId);
     } else {
-      const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-      readCommands.readDB(name, date, chatId, (response) => {
-        bot.sendMessage(chatId, name + " llevas gastado $" + response);
-      });
-    }
-
-    // bot.sendMessage(chatId, "llega");
-  } else if (message[0].match(/([0-9])/)) {
-    writeCommands.writeData(message[0], message[1], name, chatId);
-  } else {
+      bot.sendMessage(chatId, "Comando inválido");
+    }  
+  }
+   else {
     bot.sendMessage(chatId, "Comando inválido");
   }
 });
