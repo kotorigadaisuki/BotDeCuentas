@@ -16,11 +16,16 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
   const name = msg.from.first_name;
-  console.log(message.length);
+  console.log(msg);
 
-  if (message.length<=3){
-    if (message[0] == "list" && message[1] != undefined && message[1]>=1 && message[1]<=12) {
-      if (message[2] != undefined && message[2]<=1 && message[2]<=12) {
+  if (message.length <= 3) {
+    if (
+      message[0] == "list" &&
+      message[1] != undefined &&
+      message[1] >= 1 &&
+      message[1] <= 12
+    ) {
+      if (message[2] != undefined && message[2] <= 1 && message[2] <= 12) {
         const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
         const endDate = baseFunctions.getDate([message[2]]);
         readCommands.readDB(name, [startDate, endDate], chatId, (response) => {
@@ -38,9 +43,8 @@ bot.onText(/\/g (.+)/, (msg, match) => {
       writeCommands.writeData(message[0], message[1], name, chatId);
     } else {
       bot.sendMessage(chatId, "Comando inválido");
-    }  
-  }
-   else {
+    }
+  } else {
     bot.sendMessage(chatId, "Comando inválido");
   }
 });
