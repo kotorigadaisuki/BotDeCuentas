@@ -1,3 +1,20 @@
+# Bot de Cuentas
+
+Bot creado para llevar las cuentas personales y/o grupales.
+
+
+## Funcionamiento
+
+El bot almacena los datos a través de mensajes que le enviamos. La idea es que sea algo simple, rápido y que esté siempre al alcance de la mano.
+
+## Comandos
+
+Prefijo antes de los comandos **/g**
+- **_n_ Descripción**: Sumar un nuevo gasto
+  - n tiene que ser pósitivo para sumar un gasto o negativo para restarlo.
+- **list _1 1_**: Mostrar total gastado en un intervalo de tiempo.
+  - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor suma el total de ese més hasta la fecha actual.
+
 
 ### Dependencias
 
@@ -12,6 +29,16 @@ node: 16.2.0
 nvm: 0.38.0
 npm: 7.13.0
 ```
+
+### Roadmap
+
+- [ ] Deploy en servidor para uso público.
+- [ ] Feedback al cargar algun dato.
+- [ ] Mejorar el feedback de stats.
+- [ ] Funcionalidad para exportar datos a Google Sheets y/o archivo csv.
+- [ ] Funcionalidad para enviar notificaciones generales a todos los chats que esten usando el bot
+  - Solo será usado en el caso de tener que hacer mantenimiento o cambios en el servidor.
+
 
 ### Creadores 
 
