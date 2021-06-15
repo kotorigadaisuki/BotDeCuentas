@@ -42,7 +42,7 @@ npm: 7.13.0
 ### Roadmap
 
 - [ ] Deploy en servidor para uso público.
-- [ ] Feedback al cargar algun dato.
+- [x] Feedback al cargar algun dato.
 - [ ] Mejorar el feedback de stats.
 - [ ] Funcionalidad para exportar datos a Google Sheets y/o archivo csv.
 - [ ] Funcionalidad para enviar notificaciones generales a todos los chats que esten usando el bot
