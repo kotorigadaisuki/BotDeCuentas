@@ -15,22 +15,32 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   // of the message
   const chatId = msg.chat.id;
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
+  // GUUARDO EL NOMBRE EN VARIABLE
   const name = msg.from.first_name;
-  console.log(`message`, message)
-  if (message.length <= 3) {
-    if (message[0].match(/([0-9])/)) {
-      writeCommands.writeData(message[0], message[1], name, chatId);
+  
+  if (message.length <= 3) { //CONDICIONAL SI EL MENSAJE TIENE 3 O MENOS ELEMENTOS
+    if (message[0].match(/([0-9])/)) { // SI LA PRIMERA PARTE DEL MENSAJE TIENE UN GRUPO DE NUMEROS
+      //ENTONCES ES UN GASTO
+      writeCommands.writeData(message[0], message[1], name, chatId,(response=>{
+        if (response){ //SE ENVIA EL GASTO A LA DB Y RESPONDE SI SE GUARDÓ O NO
+          bot.sendMessage(chatId,"Se ha cargado el gasto correctamente.");
+        }else{
+          bot.sendMessage(chatId,"No se pudo cargar el gasto.");
+        }
+      }));
     }else if(message[1].match(/([0-9])/) || message[2].match(/([0-9])/)){
-      if (
+      //EN EL CASO DE QUE LA PRIMERA O LA SEGUNDA PARTE DEL MENSAJE SEA UN NRO
+      //TODO VALIDAR SI O SI LA PRIMERA DE FORMA MÁS ESTRICTA
+      if ( // EN EL CASO DE QUE EL COMANDO SEA /g total
         message[0] == "total" &&
         message[1] != undefined &&
         parseInt(message[1]) >= 1 &&
         parseInt(message[1]) <= 12 
       ) {
-        if (message[2] != undefined && parseInt(message[2]) >= 1 && parseInt(message[2]) <= 12) {
-          const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-          const endDate = baseFunctions.getDate([message[2]]);
-          readCommands.readTotalDb(name, [startDate, endDate], chatId, (response) => {
+        if (message[2] != undefined && parseInt(message[2]) >= 1 && parseInt(message[2]) <= 12) { //EN EL CASO DE QUE LA TERCERA PARTE DEL MENSAJE ESTÉ DEFINIDA Y SEA UN NRO ENTRE 1 Y 12
+          const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA DE COMIENZO
+          const endDate = baseFunctions.getDate([message[2]]); //PARSEA LA FECHA DE FINAL
+          readCommands.readTotalDb(name, [startDate, endDate], chatId, (response) => { //ENVIA PETICION A LA BASE DE DATOS CON EL SENDMESSAGE COMO CALLBACK
             bot.sendMessage(chatId, name + " llevas gastado $" + response);
           });
         } else {
@@ -41,7 +51,7 @@ bot.onText(/\/g (.+)/, (msg, match) => {
         }
   
         // bot.sendMessage(chatId, "llega");
-      } else if(
+      } else if( //EN EL CASO DE QUE EL COMANDO SEA /g list
         message[0] == "list" &&
         message[1] != undefined &&
         parseInt(message[1]) >= 1 &&
