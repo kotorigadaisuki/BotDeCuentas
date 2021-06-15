@@ -14,6 +14,10 @@ Prefijo antes de los comandos **/g**
   - n tiene que ser pósitivo para sumar un gasto o negativo para restarlo.
 - **list _1 1_**: Mostrar total gastado en un intervalo de tiempo.
   - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor suma el total de ese més hasta la fecha actual.
+  - El segundo número excluye ese mes.
+  - _Ejemplos_: 
+    - **/g list 4 5** -> muestra el total del mes 4 hasta el principio del mes 5.
+    - **/g list 4** -> muestra el total desde el mes 4 hasta el día de hoy.
 
 
 ### Dependencias
