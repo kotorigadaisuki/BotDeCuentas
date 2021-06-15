@@ -83,4 +83,9 @@ function getDate(date) {
   }
 }
 
-module.exports = { getDate };
+function parseDataToString(date){
+  const dateInt = date;
+  return moment().month(dateInt - 1).format("MMMM")
+}
+
+module.exports = { getDate, parseDataToString };

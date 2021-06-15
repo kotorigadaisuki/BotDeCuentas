@@ -16,35 +16,54 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
   const name = msg.from.first_name;
-  console.log(msg);
-
+  console.log(`message`, message)
   if (message.length <= 3) {
-    if (
-      message[0] == "list" &&
-      message[1] != undefined &&
-      message[1] >= 1 &&
-      message[1] <= 12
-    ) {
-      if (message[2] != undefined && message[2] <= 1 && message[2] <= 12) {
-        const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-        const endDate = baseFunctions.getDate([message[2]]);
-        readCommands.readDB(name, [startDate, endDate], chatId, (response) => {
-          bot.sendMessage(chatId, name + " llevas gastado $" + response);
-        });
-      } else {
-        const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
-        readCommands.readDB(name, date, chatId, (response) => {
-          bot.sendMessage(chatId, name + " llevas gastado $" + response);
-        });
-      }
-
-      // bot.sendMessage(chatId, "llega");
-    } else if (message[0].match(/([0-9])/)) {
+    if (message[0].match(/([0-9])/)) {
       writeCommands.writeData(message[0], message[1], name, chatId);
-    } else {
-      bot.sendMessage(chatId, "Comando inválido");
+    }else if(message[1].match(/([0-9])/) || message[2].match(/([0-9])/)){
+      if (
+        message[0] == "total" &&
+        message[1] != undefined &&
+        parseInt(message[1]) >= 1 &&
+        parseInt(message[1]) <= 12 
+      ) {
+        if (message[2] != undefined && parseInt(message[2]) >= 1 && parseInt(message[2]) <= 12) {
+          const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+          const endDate = baseFunctions.getDate([message[2]]);
+          readCommands.readTotalDb(name, [startDate, endDate], chatId, (response) => {
+            bot.sendMessage(chatId, name + " llevas gastado $" + response);
+          });
+        } else {
+          const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+          readCommands.readTotalDb(name, date, chatId, (response) => {
+            bot.sendMessage(chatId, name + " llevas gastado $" + response);
+          });
+        }
+  
+        // bot.sendMessage(chatId, "llega");
+      } else if(
+        message[0] == "list" &&
+        message[1] != undefined &&
+        parseInt(message[1]) >= 1 &&
+        parseInt(message[1]) <= 12
+      ){
+        if (message[2] != undefined && parseInt(message[2]) >= 1 && parseInt(message[2]) <= 12) {
+          const startDate = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+          const endDate = baseFunctions.getDate([message[2]]);
+          readCommands.readPartialDb(name, [startDate, endDate], chatId, (response) => {
+            bot.sendMessage(chatId, `${name} tu lista de gastos desde ${baseFunctions.parseDataToString(message[1])} hasta ${baseFunctions.parseDataToString(message[2])} es:\n ${response}`);
+          });
+        } else {
+          const date = baseFunctions.getDate(message[1]); //PARSEA LA FECHA
+          readCommands.readPartialDb(name, date, chatId, (response) => {
+            bot.sendMessage(chatId,`${name} tu lista de gastos desde ${baseFunctions.parseDataToString(message[1])} hasta hoy es:\n ${response}`);
+          });
+        }
+      }else {
+        bot.sendMessage(chatId, "Comando inválido");
+      }
     }
-  } else {
+    }else {
     bot.sendMessage(chatId, "Comando inválido");
   }
 });
