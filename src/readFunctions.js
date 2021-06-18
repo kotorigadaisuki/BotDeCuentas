@@ -73,7 +73,8 @@ const readPartialDb = (name, date, id, sendMessage) => {
       }
 
       let listaGasto = "";
-      let gasto=0;
+      let gasto = 0;
+      console.log(`date readFunction`, date)
       if (date[1] == 0) {
         //EN EL CASO DE QUE NO TENGA SEGUNDO PARÁMETRO
         const dateEnd = moment().format("YYYY-MM-DD HH:mm:ss.SSSSSS"); //FECHA DE HOY
@@ -94,7 +95,7 @@ const readPartialDb = (name, date, id, sendMessage) => {
           }
         });
       }
-      let ListaCompleta = listaGasto + "\nTotal: $"+gasto
+      let ListaCompleta = listaGasto + "\nTotal: $" + gasto
       sendMessage(ListaCompleta);
     }
   );
@@ -107,4 +108,4 @@ const readPartialDb = (name, date, id, sendMessage) => {
 };
 
 
-module.exports = { readTotalDb,readPartialDb };
+module.exports = { readTotalDb, readPartialDb };

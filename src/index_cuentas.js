@@ -23,7 +23,6 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const cmd = commands();
 
 
-  console.log(`antes if`)
   //CONDICIONAL SI EL MENSAJE TIENE 3 O MENOS ELEMENTOS
   if (message[0].match(/^([0-9]+)$/)) {
     // SI LA PRIMERA PARTE DEL MENSAJE TIENE UN GRUPO DE NUMEROS
@@ -45,8 +44,8 @@ bot.onText(/\/g (.+)/, (msg, match) => {
       }
     );
   } else {
-    console.log(`llega1`)
     if (cmd[message[0]]) {
+      console.log("Entra al comando")
       const context = {
         "chatID": chatId,
         "message": message,
