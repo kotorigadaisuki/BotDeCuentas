@@ -6,7 +6,7 @@ const adminID = require("./admin")
 const commands = () => {
   return {
     help: (context) => {
-      const msg = "Te muestro cuales son mis comandos:\n\n*Ayuda:*\n*/g help*: Muestro todos los comandos. \n*/g list 1 12*: Muestro una lista de todos los gastos en un intervalo de tiempo. En el caso de solo porne un parámetro tomaré esa fecha hasta el día de hoy \n*/g total 1 12*: Muestro el total gastado en un intervalo de tiempo. En el caso de solo poner un parámetro tomaré desde esa fecha hasta el día de hoy.\*/g about*: Acá podés ver todo lo relacionado a mi.\n\nCada vez que haya un cambio te voy a avisar.";
+      const msg = "Te muestro cuales son mis comandos:\n\nPara que pueda *cargar un gasto* tenés que escribirlo de la forma:\n*/g número descripción*.\nEl número siempre tiene que ser entero, soy un perro chiquito y todavía no se diferenciar otros tipos de números.\n\n*Otros comandos:*\n*/g help*: Muestro todos los comandos. \n*/g list 1 12*: Muestro una lista de todos los gastos en un intervalo de tiempo. En el caso de que pongas solo un parámetro tomaré esa fecha hasta el día de hoy \n*/g total 1 12*: Muestro el total gastado en un intervalo de tiempo. En el caso de solo poner un parámetro tomaré desde esa fecha hasta el día de hoy.\*/g about*: Acá podés ver todo lo relacionado a mi.\n\nCada vez que haya un cambio te voy a avisar.";
       context.bot.sendMessage(context.chatID, msg, { parse_mode: "Markdown" })
     },
     about: (context) => {
@@ -41,7 +41,9 @@ const commands = () => {
             //EN EL CASO DE QUE EXISTA ORDENA LOS VALORES
 
             const date = params.sort()
-            readCommands.readPartialDb(name, date, chatId, (response) => {
+            const startDate = baseFunctions.getDate(date[0]);
+            const endDate = baseFunctions.getDate(date[1])
+            readCommands.readPartialDb(name, [startDate, endDate], chatId, (response) => {
               bot.sendMessage(chatId, `${name} tu lista de gastos desde ${baseFunctions.parseDataToString(date[0])} hasta ${baseFunctions.parseDataToString(date[1])} es:\n ${response}`);
             })
           } else {
@@ -74,7 +76,10 @@ const commands = () => {
             //EN EL CASO DE QUE EXISTA ORDENA LOS VALORES
 
             const date = params.sort()
-            readCommands.readTotalDb(name, date, chatId, (response) => {
+
+            const startDate = baseFunctions.getDate(date[0]);
+            const endDate = baseFunctions.getDate(date[1])
+            readCommands.readTotalDb(name, [startDate, endDate], chatId, (response) => {
               bot.sendMessage(chatId, `${name} desde ${baseFunctions.parseDataToString(date[0])} hasta ${baseFunctions.parseDataToString(date[1])} llevas gastado:\n ${response}`);
             })
           } else {

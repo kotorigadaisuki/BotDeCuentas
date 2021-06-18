@@ -64,6 +64,7 @@ const readPartialDb = (name, date, id, sendMessage) => {
     }
   );
 
+
   db.all(
     `SELECT * FROM gastos WHERE nombre=? AND id_grupo=?`,
     [name, id],
@@ -74,7 +75,6 @@ const readPartialDb = (name, date, id, sendMessage) => {
 
       let listaGasto = "";
       let gasto = 0;
-      console.log(`date readFunction`, date)
       if (date[1] == 0) {
         //EN EL CASO DE QUE NO TENGA SEGUNDO PARÁMETRO
         const dateEnd = moment().format("YYYY-MM-DD HH:mm:ss.SSSSSS"); //FECHA DE HOY

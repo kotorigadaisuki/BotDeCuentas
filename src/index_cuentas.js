@@ -13,7 +13,7 @@ bot.onText(/\/start/, function (msg) {
   var chatId = msg.chat.id;
   var chatitle = msg.chat.title;
 
-  bot.sendMessage(chatId, `Hola ${msg.from.first_name}! \n Me alegra que quieras comenzar a acomodar tus cuentas. \nYo soy Apolo y te voy a ayudar a controlar tus gastos.\nPodés comenzar escribiendo / g help (sin espacio entre la / y la g) o apretando en el botón de abajo.`, {
+  bot.sendMessage(chatId, `Hola ${msg.from.first_name}! \n Me alegra que quieras comenzar a acomodar tus cuentas. \nYo soy Apolo y te voy a ayudar a controlar tus gastos.\nPodés comenzar escribiendo */g help* o apretando en el abajo.\n\nPodés comenzar cargando tus gastos /g número descripción.`, {
     reply_markup: {
       inline_keyboard: [
         [
@@ -22,7 +22,8 @@ bot.onText(/\/start/, function (msg) {
 
         ]
       ]
-    }
+
+    }, parse_mode: "Markdown"
   })
 
 
@@ -87,7 +88,6 @@ bot.onText(/\/g (.+)/, (msg, match) => {
     );
   } else {
     if (cmd[message[0]]) {
-      console.log("Entra al comando")
       const context = {
         "chatID": chatId,
         "message": message,
