@@ -6,7 +6,7 @@ const adminID = require("./admin")
 const commands = () => {
   return {
     help: (context) => {
-      const msg = "*Ayuda:*\n*/g help*: Muestra todos los comandos. \n*/g list 1 12*: Muestra una lista de todos los gastos en un intervalo de tiempo. En el caso de solo porne un parámetro se tomará esa fecha hasta el día de hoy \n*/g total 1 12*: Muestra el total gastado en un intervalo de tiempo. En el caso de solo poner un parámetro se tomará desde esa fecha hasta el día de hoy.\n\nCada vez que haya un cambio será avisado.";
+      const msg = "Te muestro cuales son mis comandos:\n\n*Ayuda:*\n*/g help*: Muestro todos los comandos. \n*/g list 1 12*: Muestro una lista de todos los gastos en un intervalo de tiempo. En el caso de solo porne un parámetro tomaré esa fecha hasta el día de hoy \n*/g total 1 12*: Muestro el total gastado en un intervalo de tiempo. En el caso de solo poner un parámetro tomaré desde esa fecha hasta el día de hoy.\*/g about*: Acá podés ver todo lo relacionado a mi.\n\nCada vez que haya un cambio te voy a avisar.";
       context.bot.sendMessage(context.chatID, msg, { parse_mode: "Markdown" })
     },
     about: (context) => {

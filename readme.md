@@ -1,37 +1,40 @@
-# Bot de Cuentas
+# Hola! Soy Apolo 🐶 
 
-Bot creado para llevar las cuentas personales y/o grupales.
+Fui creado para ayudarte a gestionar tus finanzas. 
 
+Actualmente estoy en desarrollo, pero espero que mis creadores sigan agregandome funcionalidades continuamente.
 
-## Funcionamiento
+## Mi funcionamiento
 
-El bot almacena los datos a través de mensajes que le enviamos. La idea es que sea algo simple, rápido y que esté siempre al alcance de la mano.
+Almaceno los datos a través de mensajes que me envían. La idea es que sea algo simple, rápido y que esté siempre al alcance de tu mano.
 
-## Comandos
+## Mis comandos
 
-Prefijo antes de los comandos **/g**
-- **_n_ Descripción**: Suma un nuevo gasto
-  - n tiene que ser pósitivo para sumar un gasto o negativo para restarlo.
-- **total _1 1_**: Muestra total gastado en un intervalo de tiempo.
-  - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor suma el total de ese més hasta la fecha actual.
+Para que te escuche debe poner **/g** antes de mis comandos
+- **_n_ Descripción**: Sumo un nuevo gasto
+  - n tiene que ser pósitivo para poder sumar un gasto o negativo para restarlo.
+- **total _1 1_**: Muestro el total gastado en un intervalo de tiempo.
+  - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor sumo el total de ese més hasta la fecha actual.
   - El segundo número excluye ese mes.
   - _Ejemplos_: 
     - **/g total 4 5** -> muestra el total del mes 4 hasta el principio del mes 5.
     - **/g total 4** -> muestra el total desde el mes 4 hasta el día de hoy.
-- **list _1 1_**: Muestra una lista descriptiva de los gastos en un intervalo de tiempo.
-  - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor suma el total de ese més hasta la fecha actual.
+- **list _1 1_**: Muestro una lista descriptiva de los gastos en un intervalo de tiempo.
+  - Los números indican el intervalo de meses para mostrar el total. En el caso de ingresar un solo valor sumo el total de ese més hasta la fecha actual.
   - El segundo número excluye ese mes.
   - _Ejemplos_: 
     - **/g total 4 5** -> muestra una lista descriptiva de los gastos del mes 4 hasta el principio del mes 5.
     - **/g total 4** -> muestra una lista descriptiva de los gastos desde el mes 4 hasta el día de hoy.
+- **help**: Muestro todos los comandos disponibles.
+- **about**: Muestro toda la información relacionada a mi.
 
-### Dependencias
+### Dependo de:
 
 - [moment.js](https://momentjs.com/)
 - [node-telegram-got-api](https://github.com/yagop/node-telegram-bot-api)
 - [sqlite3](https://www.sqlitetutorial.net/sqlite-nodejs/)
 
-### Versiones 
+### Versiones en las que fui creado 
 
 ```
 node: 16.2.0
@@ -41,15 +44,15 @@ npm: 7.13.0
 
 ### Roadmap
 
-- [ ] Deploy en servidor para uso público.
+- [x] Deploy en servidor para uso público.
 - [x] Feedback al cargar algun dato.
-- [ ] Mejorar el feedback de stats.
+- [x] Mejorar el feedback de stats.
 - [ ] Funcionalidad para exportar datos a Google Sheets y/o archivo csv.
-- [ ] Funcionalidad para enviar notificaciones generales a todos los chats que esten usando el bot
+- [x] Funcionalidad para enviar notificaciones generales a todos los chats que esten usando el bot
   - Solo será usado en el caso de tener que hacer mantenimiento o cambios en el servidor.
 
 
-### Creadores 
+### Mis creadores 
 
 [Ann Diehl](https://github.com/kotorigadaisuki)
 
