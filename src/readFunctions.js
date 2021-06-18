@@ -107,5 +107,36 @@ const readPartialDb = (name, date, id, sendMessage) => {
   });
 };
 
+const readAndSendGlobalMsg = (sendMessage) => {
+  //lectura completa a la db
+  let db = new sqlite3.Database(
+    "./src/gastos.sqlite3",
+    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+    (err) => {
+      if (err) {
+        console.error("error en crear db:", err.message);
+      }
+    }
+  );
 
-module.exports = { readTotalDb, readPartialDb };
+  db.each(
+    `SELECT DISTINCT id_grupo FROM gastos `,
+
+    (err, row) => {
+      if (err) {
+        console.error("error en leer db:", err.message);
+      }
+      sendMessage(row.id_grupo)
+
+    }
+  );
+
+  db.close((err) => {
+    if (err) {
+      console.error("error en cerrar db:", err.message);
+    }
+  });
+};
+
+
+module.exports = { readTotalDb, readPartialDb, readAndSendGlobalMsg };

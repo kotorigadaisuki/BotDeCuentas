@@ -7,6 +7,49 @@ const commands = require("./commands")
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(Token, { polling: true });
 
+bot.onText(/\/start/, function (msg) {
+
+
+  var chatId = msg.chat.id;
+  var chatitle = msg.chat.title;
+
+  bot.sendMessage(chatId, `Hola ${msg.from.first_name}! \n Me alegra que quieras comenzar a acomodar tus cuentas. \nYo soy Apolo y te voy a ayudar a controlar tus gastos.\nPodés comenzar escribiendo / g help (sin espacio entre la / y la g) o apretando en el botón de abajo.`, {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "⚙️ Ayuda", callback_data: "botonAyuda" },
+          { text: "🐶 Sobre Apolo", callback_data: "botonSobre" }
+
+        ]
+      ]
+    }
+  })
+
+
+});
+
+bot.on('callback_query', function onCallbackQuery(actionButton) {
+  const cmd = commands();
+  const data = actionButton.data;
+  const msg = actionButton.message;
+
+
+  const context = {
+    "chatID": actionButton.message.chat.id,
+    "bot": bot,
+  }
+
+  if (data == "botonAyuda") {
+    cmd.help(context)
+  }
+  if (data == "botonSobre") {
+    cmd.about(context)
+  }
+  if (data == "botonRepositorio") {
+
+  }
+})
+
 // Matches "/echo [whatever]"
 bot.onText(/\/g (.+)/, (msg, match) => {
   // RECIBO EL MENSAJE DE TELEGRAM
@@ -17,7 +60,6 @@ bot.onText(/\/g (.+)/, (msg, match) => {
   const message = match[1].toLowerCase().split(" "); //GUARDO EL MENSAJE EN FORMA DE ARRAY
   // GUUARDO EL NOMBRE EN VARIABLE
   const name = msg.from.first_name;
-
 
 
   const cmd = commands();
@@ -51,6 +93,7 @@ bot.onText(/\/g (.+)/, (msg, match) => {
         "message": message,
         "user": msg.from,
         "bot": bot,
+        "raw": match[1],
       }
       cmd[message[0]](context)
 
@@ -61,69 +104,3 @@ bot.onText(/\/g (.+)/, (msg, match) => {
 
   }
 })
-
-// MSG
-// RESPUESTA EN CHAT PRIVADO
-// msg { message_id: 307,
-//   from:
-//    { id: 479543501,
-//      is_bot: false,
-//      first_name: 'Alejandro',
-//      username: 'Piuma14',
-//      language_code: 'en' },
-//   chat:
-//    { id: 479543501,
-//      first_name: 'Alejandro',
-//      username: 'Piuma14',
-//      type: 'private' },
-//   date: 1623332602,
-//   text: '/g list',
-//   entities: [ { offset: 0, length: 2, type: 'bot_command' } ] }
-
-// RESPUESTA EN UN CHAT DE GRUPO
-// msg { message_id: 309,
-//   from:
-//    { id: 479543501,
-//      is_bot: false,
-//      first_name: 'Alejandro',
-//      username: 'Piuma14',
-//      language_code: 'en' },
-//   chat:
-//    { id: -548657141,
-//      title: 'test group',
-//      type: 'group',
-//      all_members_are_administrators: true },
-//   date: 1623332645,
-//   text: '/g list',
-//   entities: [ { offset: 0, length: 2, type: 'bot_command' } ] }
-
-// GETCHAT
-// respuesta en un chat privado
-// resp { id: 479543501,
-//        first_name: 'Alejandro',
-//        username: 'Piuma14',
-//        type: 'private',
-//        bio: 'alejandropiumetti.com.ar | alepiumetti.github.io',
-//        photo:
-//        { small_file_id:
-//          'AQADAQADrqcxG81AlRwACP1osEsXAAMCAAPNQJUcAATH4FP_65HoTDg_AAIfBA',
-//          small_file_unique_id: 'AQAD_WiwSxcAAzg_AAI',
-//          big_file_id:
-//          'AQADAQADrqcxG81AlRwACP1osEsXAAMDAAPNQJUcAATH4FP_65HoTDo_AAIfBA',
-//          big_file_unique_id: 'AQAD_WiwSxcAAzo_AAI' } }
-
-//      respuesta en un chat de grupo
-
-// resp { id: -548657141,
-//       title: 'test group',
-//       type: 'group',
-//       permissions:
-//        { can_send_messages: true,
-//          can_send_media_messages: true,
-//          can_send_polls: true,
-//          can_send_other_messages: true,
-//          can_add_web_page_previews: true,
-//          can_change_info: true,
-//          can_invite_users: true,
-//          can_pin_messages: true },
-//       all_members_are_administrators: true }

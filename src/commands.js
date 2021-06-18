@@ -1,12 +1,27 @@
 const baseFunctions = require("./baseFunctions");
 const readCommands = require("./readFunctions");
+const adminID = require("./admin")
 
 
 const commands = () => {
   return {
     help: (context) => {
-      const msg = "*Ayuda:*\n /g list parametros \n /g total parametros";
+      const msg = "*Ayuda:*\n*/g help*: Muestra todos los comandos. \n*/g list 1 12*: Muestra una lista de todos los gastos en un intervalo de tiempo. En el caso de solo porne un parámetro se tomará esa fecha hasta el día de hoy \n*/g total 1 12*: Muestra el total gastado en un intervalo de tiempo. En el caso de solo poner un parámetro se tomará desde esa fecha hasta el día de hoy.\n\nCada vez que haya un cambio será avisado.";
       context.bot.sendMessage(context.chatID, msg, { parse_mode: "Markdown" })
+    },
+    about: (context) => {
+      const msg = "Soy Apolo!🐶\nTe ayudo a acomodar y controlar tus cuentas.\nActualmente estoy en desarrollo y espero estar agregando siempre nuevas funcionalidades para ayudarte en tus finanzas.\nPor acá abajo podés encontrar toda la info relacionada a mi y mis creadores."
+
+      context.bot.sendMessage(context.chatID, msg, {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: "Repositorio", url: "https://github.com/kotorigadaisuki/BotDeCuentas" },
+            ]
+          ]
+        }
+      })
+
     },
     list: (context) => {
       const bot = context.bot;
@@ -72,6 +87,20 @@ const commands = () => {
         }
       }
     },
+    global: (context) => {
+      const bot = context.bot;
+      const message = context.message;
+      const raw = context.raw;
+      const chatId = context.chatID
+
+      if (chatId == adminID) {
+        let msj = raw.substr(7, raw.lenght);
+        readCommands.readAndSendGlobalMsg((response) => { bot.sendMessage(response, msj) })
+      } else {
+        bot.sendMessage(chatId, "No tienes permisos suficientes para ejecutar este comando.")
+      }
+
+    }
   };
 }
 
